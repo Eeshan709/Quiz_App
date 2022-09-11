@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Box, Button, Card, CardContent, TextField, Typography} from '@mui/material'
 import Center from './Center';
 import useForm from '../hooks/useForm';
@@ -13,10 +13,15 @@ const getFreshModel= () => ({
 
 export default function Login() {
 
-  const {context, setContext} = useStateContext();
+  const {context, setContext, resetContext} = useStateContext();
   const navigate = useNavigate();
 
 const { values, setValues, errors, setErrors, handleInputChange } = useForm(getFreshModel);
+
+useEffect(() => {
+  resetContext()
+}, [])
+
 
 const login = (e) => {
   e.preventDefault();
@@ -40,7 +45,6 @@ const validate = () => {
 
   return (
     <Center>
-      {context.participantId}
       <Card sx={{ width: 400 }}>
         <CardContent sx={{textAlign:'center'}}>
             <Typography variant='h3' sx={{my:3}}>
